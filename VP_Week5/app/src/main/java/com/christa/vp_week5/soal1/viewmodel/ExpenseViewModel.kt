@@ -1,19 +1,28 @@
 package com.christa.vp_week5.soal1.viewmodel
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.christa.vp_week5.soal1.data.ExpenseRepository
 import com.christa.vp_week5.soal1.model.Expense
-import java.util.Locale
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class ExpenseViewModel : ViewModel() {
 
-    private val _expenses = mutableStateListOf<Expense>()
-    val expenses: List<Expense> get() = _expenses
+    val expenses: StateFlow<List<Expense>> = ExpenseRepository.expenses
 
-    val totalExpense: Long get() = _expenses.sumOf { it.amount }
+    val totalExpense: StateFlow<Long> = expenses
+        .map { list -> list.sumOf { it.amount } }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = expenses.value.sumOf { it.amount }
+        )
 
     var name by mutableStateOf("")
         private set
@@ -23,8 +32,6 @@ class ExpenseViewModel : ViewModel() {
         private set
     var amountError by mutableStateOf<String?>(null)
         private set
-
-    private var nextId = 0L
 
     fun onNameChange(value: String) {
         name = value
@@ -51,26 +58,24 @@ class ExpenseViewModel : ViewModel() {
         amountError = validateAmount(amount)
         if (nameError != null || amountError != null) return
 
-        _expenses.add(Expense(id = nextId++, name = name.trim(), amount = amount.toLong()))
+        ExpenseRepository.add(
+            Expense(id = ExpenseRepository.newId(), name = name.trim(), amount = amount.toLong())
+        )
         name = ""
         amount = ""
     }
 
     fun deleteExpense(id: Long) {
-        _expenses.removeAll { it.id == id }
+        ExpenseRepository.delete(id)
     }
 
     fun updateAmount(id: Long, input: String): String? {
         val error = validateAmount(input)
         if (error != null) return error
-
-        val index = _expenses.indexOfFirst { it.id == id }
-        if (index == -1) return "Expense not found"
-
-        _expenses[index] = _expenses[index].copy(amount = input.toLong())
+        ExpenseRepository.updateAmount(id, input.toLong())
         return null
     }
 }
 
 fun formatRupiah(value: Long): String =
-    "Rp " + String.format(Locale.US, "%,d", value).replace(',', '.')
+    "Rp " + String.format(java.util.Locale.US, "%,d", value).replace(',', '.')

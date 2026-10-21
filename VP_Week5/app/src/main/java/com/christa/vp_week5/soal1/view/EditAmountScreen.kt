@@ -7,7 +7,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import com.christa.vp_week5.soal1.model.Expense
 
 @Composable
-fun EditAmountDialog(
+fun EditAmountScreen(
     expense: Expense,
     onDismiss: () -> Unit,
     onSave: (String) -> String?

@@ -20,11 +20,14 @@ import com.christa.vp_week5.soal1.viewmodel.formatRupiah
 
 @Composable
 fun ExpenseScreen(viewModel: ExpenseViewModel, modifier: Modifier = Modifier) {
+    val expenses by viewModel.expenses.collectAsState()
+    val total by viewModel.totalExpense.collectAsState()
+
     var editing by remember { mutableStateOf<Expense?>(null) }
 
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         Text("Expenses", fontSize = 22.sp, fontWeight = FontWeight.Bold)
-        Text("Total Expense : ${formatRupiah(viewModel.totalExpense)}", fontSize = 13.sp)
+        Text("Total Expense : ${formatRupiah(total)}", fontSize = 13.sp)
         Spacer(Modifier.height(16.dp))
 
         OutlinedTextField(
@@ -58,7 +61,7 @@ fun ExpenseScreen(viewModel: ExpenseViewModel, modifier: Modifier = Modifier) {
         }
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(viewModel.expenses, key = { it.id }) { expense ->
+            items(expenses, key = { it.id }) { expense ->
                 ExpenseItem(
                     expense = expense,
                     onEdit = { editing = expense },
@@ -69,7 +72,7 @@ fun ExpenseScreen(viewModel: ExpenseViewModel, modifier: Modifier = Modifier) {
     }
 
     editing?.let { expense ->
-        EditAmountDialog(
+        EditAmountScreen(
             expense = expense,
             onDismiss = { editing = null },
             onSave = { input -> viewModel.updateAmount(expense.id, input) }
