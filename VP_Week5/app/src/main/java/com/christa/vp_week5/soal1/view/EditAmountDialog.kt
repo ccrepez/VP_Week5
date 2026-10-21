@@ -1,10 +1,10 @@
-package com.christa.vp_week5.view
+package com.christa.vp_week5.soal1.view
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.text.input.KeyboardType
-import com.christa.vp_week5.model.Expense
+import com.christa.vp_week5.soal1.model.Expense
 
 @Composable
 fun EditAmountDialog(

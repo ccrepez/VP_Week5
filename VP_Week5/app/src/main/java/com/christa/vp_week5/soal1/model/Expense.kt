@@ -1,4 +1,4 @@
-package com.christa.vp_week5.model
+package com.christa.vp_week5.soal1.model
 
 data class Expense(
     val id: Long,

@@ -1,4 +1,4 @@
-package com.christa.vp_week5.view
+package com.christa.vp_week5.soal1.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,9 +14,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.christa.vp_week5.model.Expense
-import com.christa.vp_week5.viewmodel.ExpenseViewModel
-import com.christa.vp_week5.viewmodel.formatRupiah
+import com.christa.vp_week5.soal1.model.Expense
+import com.christa.vp_week5.soal1.viewmodel.ExpenseViewModel
+import com.christa.vp_week5.soal1.viewmodel.formatRupiah
 
 @Composable
 fun ExpenseScreen(viewModel: ExpenseViewModel, modifier: Modifier = Modifier) {

@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.christa.vp_week5.ui.theme.VP_Week5Theme
-import com.christa.vp_week5.view.ExpenseScreen
-import com.christa.vp_week5.viewmodel.ExpenseViewModel
+import com.christa.vp_week5.soal1.view.ExpenseScreen
+import com.christa.vp_week5.soal1.viewmodel.ExpenseViewModel
 
 class MainActivity : ComponentActivity() {
     private val expenseViewModel: ExpenseViewModel by viewModels()

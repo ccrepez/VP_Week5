@@ -1,11 +1,12 @@
-package com.christa.vp_week5.viewmodel
+package com.christa.vp_week5.soal1.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.christa.vp_week5.model.Expense
+import com.christa.vp_week5.soal1.model.Expense
+import java.util.Locale
 
 class ExpenseViewModel : ViewModel() {
 
@@ -72,4 +73,4 @@ class ExpenseViewModel : ViewModel() {
 }
 
 fun formatRupiah(value: Long): String =
-    "Rp " + String.format(java.util.Locale.US, "%,d", value).replace(',', '.')
+    "Rp " + String.format(Locale.US, "%,d", value).replace(',', '.')
