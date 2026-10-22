@@ -10,22 +10,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.christa.vp_week5.ui.theme.VP_Week5Theme
-import com.christa.vp_week5.soal1.view.ExpenseScreen
-import com.christa.vp_week5.soal1.viewmodel.ExpenseViewModel
+//uncomment untuk run soal yang mana
+
+//import com.christa.vp_week5.soal1.view.ExpenseScreen //soal1
+//import com.christa.vp_week5.soal1.viewmodel.ExpenseViewModel //soal1
+import com.christa.vp_week5.soal2.view.QuizAppScreen //soal2
+import com.christa.vp_week5.soal2.viewmodel.QuizViewModel //soal2
 
 class MainActivity : ComponentActivity() {
-    private val expenseViewModel: ExpenseViewModel by viewModels()
+    //uncomment untuk run soal yang mana
+
+    //private val expenseViewModel: ExpenseViewModel by viewModels() //soal1
+    private val quizViewModel: QuizViewModel by viewModels() //soal2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            VP_Week5Theme() {
+            VP_Week5Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ExpenseScreen(
-                        viewModel = expenseViewModel,
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    //uncomment untuk run soal yang mana
+
+                    //ExpenseScreen(viewModel = expenseViewModel, modifier = Modifier.padding(innerPadding)) //soal1
+                    QuizAppScreen(viewModel = quizViewModel, modifier = Modifier.padding(innerPadding)) //soal2
                 }
             }
         }
